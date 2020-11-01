@@ -69,4 +69,19 @@ class GildedRoseTest extends TestCase
 
 		$this->assertEquals([30, 10], $result);
 	}
+
+	public function test_backstagePasses_item_quality_increases_as_sellIng_is_close()
+	{
+		$backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 30);
+
+		GildedRose::updateQuality([$backstageItem]);
+		$result10Days = $backstageItem->quality;
+		
+		for($i = 0; $i < 5; $i++) {
+			GildedRose::updateQuality([$backstageItem]);
+		}
+		$result5Days = $backstageItem->quality;
+		$this->assertEquals(32, $result10Days);
+		$this->assertEquals(43, $result5Days);
+	}
 }
