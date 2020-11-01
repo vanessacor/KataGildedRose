@@ -9,7 +9,7 @@ use App\Item;
 class GildedRoseTest extends TestCase
 {
 
-	public function test_Some_Item_Decrease_Quality_in_1_unit()
+	public function test_item_decrease_quality_in_1_unit()
 	{
 		$someItem = new Item("Some Item", 2, 3);
 
@@ -18,7 +18,7 @@ class GildedRoseTest extends TestCase
 		$this->assertEquals(2, $someItem->quality);
 	}
 
-	public function test_Some_Item_Decrease_Quality_in_double_unit_after_sellIn()
+	public function test_item_decrease_quality_in_double_unit_after_sellIn()
 	{
 		$someItem = new Item("Some Item", 1, 9);
 
@@ -28,6 +28,7 @@ class GildedRoseTest extends TestCase
 
 		$this->assertEquals(6, $result);
 	}
+
 	public function test_Some_Item_Quality_never_below_0()
 	{
 		$someItem = new Item("Some Item", 1, 1);
@@ -37,5 +38,15 @@ class GildedRoseTest extends TestCase
 		$result = $someItem->quality;
 
 		$this->assertEquals(0, $result);
+	}
+
+	public function test_AgeBrie_Item_increases_quality_instead_decrease()
+	{
+		$brieItem = new Item("Aged Brie", 2, 3);
+
+		GildedRose::updateQuality([$brieItem]);
+		$result = $brieItem->quality;
+
+		$this->assertEquals(4, $result);
 	}
 }
