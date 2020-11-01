@@ -49,4 +49,14 @@ class GildedRoseTest extends TestCase
 
 		$this->assertEquals(4, $result);
 	}
+
+	public function test_item_quality_never_above_50()
+	{
+		$brieItem = new Item("Aged Brie", 2, 50);
+
+		GildedRose::updateQuality([$brieItem]);
+		$result = $brieItem->quality;
+
+		$this->assertEquals(50, $result);
+	}
 }
