@@ -59,4 +59,14 @@ class GildedRoseTest extends TestCase
 
 		$this->assertEquals(50, $result);
 	}
+
+	public function test_sulfuras_item_quality_and_sellIng_never_change()
+	{
+		$sulfuraItem = new Item("Sulfuras, Hand of Ragnaros", 10, 30);
+
+		GildedRose::updateQuality([$sulfuraItem]);
+		$result = [$sulfuraItem->quality, $sulfuraItem->sellIn];
+
+		$this->assertEquals([30, 10], $result);
+	}
 }
