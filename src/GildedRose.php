@@ -6,37 +6,43 @@ namespace App;
 
 class GildedRose
 {
-   
-    
+    public static $itemMaxQuality = 50;
+    public static $itemMinQuality = 0;
+    public static $itemQualityRate = 1;
+
+      
+    // public static function updateBrie( )  {
+    //     quality increases;
+    //     sellin date descreses;
+    //     if sellingdate 
+    // }
+
     public static function updateQuality($items)
     {
-        for ($i = 0; $i < count($items); $i++) {
-            $item = $items[$i];
+        
+        foreach ($items as $item) {
             $itemName = $item->getName();
             $itemQuality =$item->getQuality();
-            $itemMaxquality = 50;
-            $itemMinQuality = 0;
-            $itemQualityRate = 1;
 
             if (("Aged Brie" != $itemName) && ("Backstage passes to a TAFKAL80ETC concert" != $itemName)) {
-                if ($itemQuality > $itemMinQuality) {
+                if ($itemQuality > self::$itemMinQuality) {
                     if ("Sulfuras, Hand of Ragnaros" != $itemName) {
-                        $item->setQuality($itemQuality - $itemQualityRate);
+                        $item->setQuality($itemQuality - self::$itemQualityRate);
                     }
                 }
             } else {
-                if ($itemQuality < $itemMaxquality) {
-                    $item->setQuality($itemQuality + $itemQualityRate);
+                if ($itemQuality < self::$itemMaxQuality) {
+                    $item->setQuality($itemQuality + self::$itemQualityRate);
                     $itemQuality = $item->getQuality();
                     if ("Backstage passes to a TAFKAL80ETC concert" == $itemName) {
                         if ($item->getSellIn() < 11) {
-                            if ($itemQuality < $itemMaxquality) {
-                                $item->setQuality($itemQuality + $itemQualityRate);
+                            if ($itemQuality < self::$itemMaxQuality) {
+                                $item->setQuality($itemQuality + self::$itemQualityRate);
                             }
                         }
                         if ($item->getSellIn() < 6) {
-                            if ($itemQuality < $itemMaxquality) {
-                                $item->setQuality($item->getQuality() + $itemQualityRate);
+                            if ($itemQuality < self::$itemMaxQuality) {
+                                $item->setQuality($item->getQuality() + self::$itemQualityRate);
                             }
                         }
                     }
@@ -44,15 +50,15 @@ class GildedRose
             }
 
             if ("Sulfuras, Hand of Ragnaros" != $itemName) {
-                $item->setSellIn($item->getSellIn() - $itemQualityRate);
+                $item->setSellIn($item->getSellIn() - self::$itemQualityRate);
             }
 
             if ($item->getSellIn() < 0) {
                 if ("Aged Brie" != $itemName) {
                     if ("Backstage passes to a TAFKAL80ETC concert" != $itemName) {
-                        if ($itemQuality > $itemMinQuality) {
+                        if ($itemQuality > self::$itemMinQuality) {
                             if ("Sulfuras, Hand of Ragnaros" != $itemName) {
-                                $item->setQuality($item->getQuality() - $itemQualityRate);
+                                $item->setQuality($item->getQuality() - self::$itemQualityRate);
                                 $itemQuality = $item->getQuality();;
                             }
                         }
@@ -60,8 +66,8 @@ class GildedRose
                         $item->setQuality($itemQuality - $itemQuality);
                     }
                 } else {
-                    if ($itemQuality < $itemMaxquality) {
-                        $item->setQuality($item->getQuality() + $itemQualityRate);
+                    if ($itemQuality < self::$itemMaxQuality) {
+                        $item->setQuality($item->getQuality() + self::$itemQualityRate);
                     }
                 }
             }

@@ -80,9 +80,7 @@ class GildedRoseTest extends TestCase
 		for($i = 0; $i < 5; $i++) {
 			GildedRose::updateQuality([$backstageItem]);
 		}
-
 		$result5Days = $backstageItem->quality;
-		
 		$this->assertEquals(32, $result10Days);
 		$this->assertEquals(43, $result5Days);
 	}
