@@ -6,17 +6,14 @@ namespace App;
 
 class GildedRose
 {
-    public static $itemMaxQuality = 50;
-    public static $itemMinQuality = 0;
-    public static $itemQualityRate = 1;
+    public static $maxQuality = 50;
+    public static $minQuality = 0;
+    public static $qualityRate = 1;
+    public static $oneDay = 1;
+    public static $ageBrie = "Aged Brie";
 
       
-    // public static function updateBrie( )  {
-    //     quality increases;
-    //     sellin date descreses;
-    //     if sellingdate 
-    // }
-
+   
     public static function updateQuality($items)
     {
         
@@ -24,25 +21,25 @@ class GildedRose
             $itemName = $item->getName();
             $itemQuality =$item->getQuality();
 
-            if (("Aged Brie" != $itemName) && ("Backstage passes to a TAFKAL80ETC concert" != $itemName)) {
-                if ($itemQuality > self::$itemMinQuality) {
+            if ((self::$ageBrie != $itemName) && ("Backstage passes to a TAFKAL80ETC concert" != $itemName)) {
+                if ($itemQuality > self::$minQuality) {
                     if ("Sulfuras, Hand of Ragnaros" != $itemName) {
-                        $item->setQuality($itemQuality - self::$itemQualityRate);
+                        $item->setQuality($itemQuality - self::$qualityRate);
                     }
                 }
             } else {
-                if ($itemQuality < self::$itemMaxQuality) {
-                    $item->setQuality($itemQuality + self::$itemQualityRate);
+                if ($itemQuality < self::$maxQuality) {
+                    $item->setQuality($itemQuality + self::$qualityRate);
                     $itemQuality = $item->getQuality();
                     if ("Backstage passes to a TAFKAL80ETC concert" == $itemName) {
                         if ($item->getSellIn() < 11) {
-                            if ($itemQuality < self::$itemMaxQuality) {
-                                $item->setQuality($itemQuality + self::$itemQualityRate);
+                            if ($itemQuality < self::$maxQuality) {
+                                $item->setQuality($itemQuality + self::$qualityRate);
                             }
                         }
                         if ($item->getSellIn() < 6) {
-                            if ($itemQuality < self::$itemMaxQuality) {
-                                $item->setQuality($item->getQuality() + self::$itemQualityRate);
+                            if ($itemQuality < self::$maxQuality) {
+                                $item->setQuality($item->getQuality() + self::$qualityRate);
                             }
                         }
                     }
@@ -50,15 +47,15 @@ class GildedRose
             }
 
             if ("Sulfuras, Hand of Ragnaros" != $itemName) {
-                $item->setSellIn($item->getSellIn() - self::$itemQualityRate);
+                $item->setSellIn($item->getSellIn() - self::$qualityRate);
             }
 
             if ($item->getSellIn() < 0) {
-                if ("Aged Brie" != $itemName) {
+                if (self::$ageBrie!= $itemName) {
                     if ("Backstage passes to a TAFKAL80ETC concert" != $itemName) {
-                        if ($itemQuality > self::$itemMinQuality) {
+                        if ($itemQuality > self::$minQuality) {
                             if ("Sulfuras, Hand of Ragnaros" != $itemName) {
-                                $item->setQuality($item->getQuality() - self::$itemQualityRate);
+                                $item->setQuality($item->getQuality() - self::$qualityRate);
                                 $itemQuality = $item->getQuality();;
                             }
                         }
@@ -66,8 +63,8 @@ class GildedRose
                         $item->setQuality($itemQuality - $itemQuality);
                     }
                 } else {
-                    if ($itemQuality < self::$itemMaxQuality) {
-                        $item->setQuality($item->getQuality() + self::$itemQualityRate);
+                    if ($itemQuality < self::$maxQuality) {
+                        $item->setQuality($item->getQuality() + self::$qualityRate);
                     }
                 }
             }
