@@ -72,17 +72,32 @@ class GildedRoseTest extends TestCase
 
 	public function test_backstagePasses_item_quality_increases_as_sellIng_is_close()
 	{
+		$backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 20, 30);
+
+		GildedRose::updateQuality([$backstageItem]);
+		$result = $backstageItem->quality;
+		
+		$this->assertEquals(31, $result);
+	}
+
+	public function test_backstagePasses_item_quality_increases_by_double_if_sellin_less_than_10()
+	{
 		$backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 10, 30);
 
 		GildedRose::updateQuality([$backstageItem]);
-		$result10Days = $backstageItem->quality;
+		$result = $backstageItem->quality;
 		
-		for($i = 0; $i < 5; $i++) {
-			GildedRose::updateQuality([$backstageItem]);
-		}
-		$result5Days = $backstageItem->quality;
-		$this->assertEquals(32, $result10Days);
-		$this->assertEquals(43, $result5Days);
+		$this->assertEquals(32, $result);
+	}
+
+	public function test_backstagePasses_item_quality_increases_by_double_if_sellin_less_than_5()
+	{
+		$backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 5, 30);
+
+		GildedRose::updateQuality([$backstageItem]);
+		
+		$result = $backstageItem->quality;
+		$this->assertEquals(33, $result);
 	}
 
 	public function test_backstagePasses_item_quality_is_0_after_sellIng()
