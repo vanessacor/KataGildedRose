@@ -100,7 +100,7 @@ class GildedRoseTest extends TestCase
 		$this->assertEquals(33, $result);
 	}
 
-	public function test_backstagePasses_item_quality_is_0_after_sellIng()
+	public function test_backstagePasses_item_quality_is_0_after_sellIn()
 	{
 		$backstageItem = new Item("Backstage passes to a TAFKAL80ETC concert", 1, 4);
 
